@@ -1,8 +1,88 @@
-export function detectHeaders(headers: Record<string, string>) {
-    const tech = [];
+export interface HeaderInfo {
+    server?: string;
+    poweredBy?: string;
+    framework?: string;
+    security?: Record<string, string>;
+    caching?: Record<string, string>;
+    csp?: string;
+    cors?: string;
+    all: Record<string, string>;
+}
 
-    if (headers["x-powered-by"]) tech.push(headers["x-powered-by"]);
-    if (headers["server"]) tech.push(`Server: ${headers["server"]}`);
+export function detectHeaders(headers: Record<string, string>): HeaderInfo {
+    const normalizedHeaders: Record<string, string> = {};
+    
+    Object.entries(headers).forEach(([key, value]) => {
+        normalizedHeaders[key.toLowerCase()] = value;
+    });
 
-    return tech;
+    const result: HeaderInfo = {
+        all: headers,
+    };
+
+    if (normalizedHeaders["server"]) {
+        result.server = normalizedHeaders["server"];
+    }
+
+    if (normalizedHeaders["x-powered-by"]) {
+        result.poweredBy = normalizedHeaders["x-powered-by"];
+    }
+
+    if (normalizedHeaders["x-framework"]) {
+        result.framework = normalizedHeaders["x-framework"];
+    }
+
+    const securityHeaders: Record<string, string> = {};
+    const securityHeaderKeys = [
+        "strict-transport-security",
+        "x-frame-options",
+        "x-content-type-options",
+        "x-xss-protection",
+        "referrer-policy",
+        "permissions-policy",
+        "content-security-policy",
+        "public-key-pins",
+        "expect-ct",
+    ];
+
+    securityHeaderKeys.forEach((key) => {
+        if (normalizedHeaders[key]) {
+            securityHeaders[key] = normalizedHeaders[key];
+        }
+    });
+
+    if (Object.keys(securityHeaders).length > 0) {
+        result.security = securityHeaders;
+    }
+
+    if (normalizedHeaders["content-security-policy"]) {
+        result.csp = normalizedHeaders["content-security-policy"];
+    }
+
+    const cachingHeaders: Record<string, string> = {};
+    const cachingHeaderKeys = [
+        "cache-control",
+        "etag",
+        "expires",
+        "last-modified",
+        "age",
+    ];
+
+    cachingHeaderKeys.forEach((key) => {
+        if (normalizedHeaders[key]) {
+            cachingHeaders[key] = normalizedHeaders[key];
+        }
+    });
+
+    if (Object.keys(cachingHeaders).length > 0) {
+        result.caching = cachingHeaders;
+    }
+
+    if (normalizedHeaders["access-control-allow-origin"] || 
+        normalizedHeaders["access-control-allow-methods"] ||
+        normalizedHeaders["access-control-allow-headers"]) {
+        result.cors = "Enabled";
+    }
+
+    return result;
 }
