@@ -9,10 +9,10 @@ export default function Header() {
   return (
     <header className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
       <nav className="container mx-auto px-4 sm:px-6 max-w-4xl" aria-label="Main navigation">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14 sm:h-16">
           <Link
             href="/"
-            className="flex items-center gap-2 text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+            className="flex items-center gap-1.5 sm:gap-2 text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
             aria-label="StackScope home"
           >
             <svg
@@ -20,7 +20,7 @@ export default function Header() {
               width="24"
               height="24"
               viewBox="0 0 16 16"
-              className="w-6 h-6"
+              className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0"
               aria-hidden="true"
             >
               <defs>
@@ -40,11 +40,11 @@ export default function Header() {
             </svg>
             <span>StackScope</span>
           </Link>
-          <ul className="flex gap-1 list-none" role="list">
+          <ul className="flex gap-0.5 sm:gap-1 list-none" role="list">
             <li>
               <Link
                 href="/"
-                className={`px-4 py-2 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                className={`px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
                   pathname === "/"
                     ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
                     : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
@@ -57,7 +57,7 @@ export default function Header() {
             <li>
               <Link
                 href="/about"
-                className={`px-4 py-2 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                className={`px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
                   pathname === "/about"
                     ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
                     : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"

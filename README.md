@@ -1,7 +1,5 @@
 # StackScope
 
-**Uncover the technology stack behind any website with lightning-fast precision.**
-
 StackScope is a modern web technology analyzer that can reveal the underlying architecture, frameworks, and services of any website. Built with Next.js and powered by headless browser automation, StackScope delivers comprehensive insights into the technologies that power the modern web.
 
 ## Features

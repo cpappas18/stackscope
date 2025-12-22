@@ -20,7 +20,7 @@ export default function Footer() {
             </p>
             <span className="hidden sm:inline text-slate-400">•</span>
             <a
-              href="https://github.com/chloepappas/stackscope"
+              href="https://github.com/cpappas18/stackscope"
               className="text-blue-600 dark:text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded inline-flex items-center gap-1"
               target="_blank"
               rel="noopener noreferrer"
