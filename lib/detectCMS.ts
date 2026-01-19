@@ -32,9 +32,11 @@ export function detectCMS(html: string): string[] {
     }
 
     if (
-        lowerHtml.includes("ghost") ||
         lowerHtml.includes("ghost.org") ||
-        lowerHtml.includes("ghost-admin")
+        lowerHtml.includes("ghost-admin") ||
+        lowerHtml.includes("ghost.min.js") ||
+        lowerHtml.includes("ghost-sdk") ||
+        lowerHtml.includes("tryghost.org")
     ) {
         cms.push("Ghost");
     }
@@ -135,9 +137,11 @@ export function detectCMS(html: string): string[] {
     }
 
     if (
-        lowerHtml.includes("craft") ||
         lowerHtml.includes("craftcms") ||
-        lowerHtml.includes("craftcdn.com")
+        lowerHtml.includes("craftcdn.com") ||
+        lowerHtml.includes("craftcommerce") ||
+        lowerHtml.includes("craft.min.js") ||
+        lowerHtml.includes("craftcms.com")
     ) {
         cms.push("Craft CMS");
     }
@@ -151,8 +155,12 @@ export function detectCMS(html: string): string[] {
 
     if (
         lowerHtml.includes("magento") ||
-        lowerHtml.includes("mage/") ||
-        lowerHtml.includes("magento-")
+        lowerHtml.includes("/js/mage/") ||
+        lowerHtml.includes("/skin/frontend/") ||
+        lowerHtml.includes("magento-") ||
+        lowerHtml.includes("mage/admin") ||
+        lowerHtml.includes("mage/cookies") ||
+        lowerHtml.includes("var/www/html/magento")
     ) {
         cms.push("Magento");
     }

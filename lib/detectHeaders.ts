@@ -13,23 +13,25 @@ export function detectHeaders(headers: Record<string, string>): HeaderInfo {
     const normalizedHeaders: Record<string, string> = {};
     
     Object.entries(headers).forEach(([key, value]) => {
-        normalizedHeaders[key.toLowerCase()] = value;
+        normalizedHeaders[key.toLowerCase()] = value.trim();
     });
 
     const result: HeaderInfo = {
-        all: headers,
+        all: Object.fromEntries(
+            Object.entries(headers).map(([key, value]) => [key, value.trim()])
+        ),
     };
 
     if (normalizedHeaders["server"]) {
-        result.server = normalizedHeaders["server"];
+        result.server = normalizedHeaders["server"].trim();
     }
 
     if (normalizedHeaders["x-powered-by"]) {
-        result.poweredBy = normalizedHeaders["x-powered-by"];
+        result.poweredBy = normalizedHeaders["x-powered-by"].trim();
     }
 
     if (normalizedHeaders["x-framework"]) {
-        result.framework = normalizedHeaders["x-framework"];
+        result.framework = normalizedHeaders["x-framework"].trim();
     }
 
     const securityHeaders: Record<string, string> = {};
@@ -47,7 +49,7 @@ export function detectHeaders(headers: Record<string, string>): HeaderInfo {
 
     securityHeaderKeys.forEach((key) => {
         if (normalizedHeaders[key]) {
-            securityHeaders[key] = normalizedHeaders[key];
+            securityHeaders[key] = normalizedHeaders[key].trim();
         }
     });
 
@@ -56,7 +58,7 @@ export function detectHeaders(headers: Record<string, string>): HeaderInfo {
     }
 
     if (normalizedHeaders["content-security-policy"]) {
-        result.csp = normalizedHeaders["content-security-policy"];
+        result.csp = normalizedHeaders["content-security-policy"].trim();
     }
 
     const cachingHeaders: Record<string, string> = {};
@@ -70,7 +72,7 @@ export function detectHeaders(headers: Record<string, string>): HeaderInfo {
 
     cachingHeaderKeys.forEach((key) => {
         if (normalizedHeaders[key]) {
-            cachingHeaders[key] = normalizedHeaders[key];
+            cachingHeaders[key] = normalizedHeaders[key].trim();
         }
     });
 

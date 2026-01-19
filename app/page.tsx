@@ -247,33 +247,21 @@ export default function Home() {
                       </h3>
                       <div className="space-y-2">
                         {result.headers.server && (
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 p-2.5 sm:p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                            <span className="font-semibold text-blue-700 dark:text-blue-300 sm:min-w-[140px] flex-shrink-0 text-sm sm:text-base">
-                              Server:
-                            </span>
-                            <span className="text-blue-900 dark:text-blue-100 font-mono text-xs sm:text-sm break-all">
-                              {result.headers.server}
-                            </span>
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 p-2.5 sm:p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                            <span className="font-semibold text-blue-700 dark:text-blue-300 flex-shrink-0 text-sm sm:text-base">Server:</span>
+                            <span className="text-blue-900 dark:text-blue-100 font-mono text-xs sm:text-sm break-all">{result.headers.server}</span>
                           </div>
                         )}
                         {result.headers.poweredBy && (
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 p-2.5 sm:p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
-                            <span className="font-semibold text-purple-700 dark:text-purple-300 sm:min-w-[140px] flex-shrink-0 text-sm sm:text-base">
-                              Powered By:
-                            </span>
-                            <span className="text-purple-900 dark:text-purple-100 font-mono text-xs sm:text-sm break-all">
-                              {result.headers.poweredBy}
-                            </span>
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 p-2.5 sm:p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
+                            <span className="font-semibold text-purple-700 dark:text-purple-300 flex-shrink-0 text-sm sm:text-base">Powered By:</span>
+                            <span className="text-purple-900 dark:text-purple-100 font-mono text-xs sm:text-sm break-all">{result.headers.poweredBy}</span>
                           </div>
                         )}
                         {result.headers.framework && (
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 p-2.5 sm:p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-200 dark:border-indigo-800">
-                            <span className="font-semibold text-indigo-700 dark:text-indigo-300 sm:min-w-[140px] flex-shrink-0 text-sm sm:text-base">
-                              Framework:
-                            </span>
-                            <span className="text-indigo-900 dark:text-indigo-100 font-mono text-xs sm:text-sm break-all">
-                              {result.headers.framework}
-                            </span>
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 p-2.5 sm:p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                            <span className="font-semibold text-indigo-700 dark:text-indigo-300 flex-shrink-0 text-sm sm:text-base">Framework:</span>
+                            <span className="text-indigo-900 dark:text-indigo-100 font-mono text-xs sm:text-sm break-all">{result.headers.framework}</span>
                           </div>
                         )}
                       </div>
@@ -292,14 +280,10 @@ export default function Home() {
                         {Object.entries(result.headers.security).map(([key, value], idx) => (
                           <div
                             key={idx}
-                            className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 p-2.5 sm:p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800"
+                            className="flex flex-col sm:flex-row sm:items-center gap-1.5 p-2.5 sm:p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800"
                           >
-                            <span className="font-semibold text-green-700 dark:text-green-300 sm:min-w-[200px] flex-shrink-0 capitalize text-sm sm:text-base">
-                              {key.replace(/-/g, " ")}:
-                            </span>
-                            <span className="text-green-900 dark:text-green-100 font-mono text-xs sm:text-sm break-all">
-                              {value}
-                            </span>
+                            <span className="font-semibold text-green-700 dark:text-green-300 flex-shrink-0 capitalize text-sm sm:text-base">{key.replace(/-/g, " ")}:</span>
+                            <span className="text-green-900 dark:text-green-100 font-mono text-xs sm:text-sm break-all">{value}</span>
                           </div>
                         ))}
                       </div>
@@ -315,14 +299,10 @@ export default function Home() {
                         {Object.entries(result.headers.caching).map(([key, value], idx) => (
                           <div
                             key={idx}
-                            className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 p-2.5 sm:p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800"
+                            className="flex flex-col sm:flex-row sm:items-center gap-1.5 p-2.5 sm:p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800"
                           >
-                            <span className="font-semibold text-amber-700 dark:text-amber-300 sm:min-w-[140px] flex-shrink-0 capitalize text-sm sm:text-base">
-                              {key.replace(/-/g, " ")}:
-                            </span>
-                            <span className="text-amber-900 dark:text-amber-100 font-mono text-xs sm:text-sm break-all">
-                              {value}
-                            </span>
+                            <span className="font-semibold text-amber-700 dark:text-amber-300 flex-shrink-0 capitalize text-sm sm:text-base">{key.replace(/-/g, " ")}:</span>
+                            <span className="text-amber-900 dark:text-amber-100 font-mono text-xs sm:text-sm break-all">{value}</span>
                           </div>
                         ))}
                       </div>
@@ -330,8 +310,8 @@ export default function Home() {
                   )}
 
                   {result.headers.cors && (
-                    <div className="p-2.5 sm:p-3 bg-cyan-50 dark:bg-cyan-900/20 rounded-lg border border-cyan-200 dark:border-cyan-800">
-                      <span className="font-semibold text-cyan-700 dark:text-cyan-300 text-sm sm:text-base">CORS: </span>
+                    <div className="flex items-center gap-1.5 p-2.5 sm:p-3 bg-cyan-50 dark:bg-cyan-900/20 rounded-lg border border-cyan-200 dark:border-cyan-800">
+                      <span className="font-semibold text-cyan-700 dark:text-cyan-300 text-sm sm:text-base">CORS:</span>
                       <span className="text-cyan-900 dark:text-cyan-100 text-sm sm:text-base">{result.headers.cors}</span>
                     </div>
                   )}
@@ -345,14 +325,10 @@ export default function Home() {
                         {Object.entries(result.headers.all || {}).map(([key, value], idx) => (
                           <div
                             key={idx}
-                            className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 p-2.5 sm:p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                            className="flex flex-col sm:flex-row sm:items-center gap-1.5 p-2.5 sm:p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
                           >
-                            <span className="font-semibold text-slate-700 dark:text-slate-300 sm:min-w-[200px] flex-shrink-0 text-sm sm:text-base">
-                              {key}:
-                            </span>
-                            <span className="text-slate-600 dark:text-slate-400 font-mono text-xs sm:text-sm break-all">
-                              {value}
-                            </span>
+                            <span className="font-semibold text-slate-700 dark:text-slate-300 flex-shrink-0 text-sm sm:text-base">{key}:</span>
+                            <span className="text-slate-600 dark:text-slate-400 font-mono text-xs sm:text-sm break-all">{value}</span>
                           </div>
                         ))}
                       </div>
