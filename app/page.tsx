@@ -21,6 +21,41 @@ interface AnalysisResult {
   headers?: HeaderInfo;
 }
 
+function getHeaderDescription(headerKey: string): string {
+  const descriptions: Record<string, string> = {
+    "server": "Identifies the web server software (e.g., Apache, Nginx) serving the website.",
+    "x-powered-by": "Reveals the underlying technology or framework powering the website.",
+    "x-framework": "Indicates the web framework being used (e.g., Express, Rails).",
+    "strict-transport-security": "Forces browsers to use HTTPS for all connections to prevent man-in-the-middle attacks.",
+    "x-frame-options": "Prevents the page from being displayed in an iframe, protecting against clickjacking attacks.",
+    "x-content-type-options": "Prevents browsers from MIME-sniffing responses, reducing the risk of XSS attacks.",
+    "x-xss-protection": "Enables the browser's built-in XSS (Cross-Site Scripting) filter.",
+    "referrer-policy": "Controls how much referrer information is shared when navigating to other sites.",
+    "permissions-policy": "Controls which browser features and APIs can be used by the page (formerly Feature-Policy).",
+    "content-security-policy": "Defines which resources can be loaded to prevent XSS, injection attacks, and data theft.",
+    "public-key-pins": "Associates a host with specific TLS certificates to prevent man-in-the-middle attacks.",
+    "expect-ct": "Allows sites to monitor and enforce Certificate Transparency requirements.",
+    "cache-control": "Directives for how long and how a response should be cached by browsers and proxies.",
+    "etag": "A unique identifier for a specific version of a resource, used for cache validation.",
+    "expires": "The date and time after which the cached response is considered stale.",
+    "last-modified": "The date and time when the resource was last changed, used for cache validation.",
+    "age": "Indicates how long the object has been in a proxy cache, in seconds.",
+    "cors": "Cross-Origin Resource Sharing enables web pages to request resources from a different domain.",
+    "access-control-allow-origin": "Specifies which origins are allowed to access the resource when making cross-origin requests.",
+    "access-control-allow-methods": "Indicates which HTTP methods (GET, POST, PUT, etc.) are allowed when accessing a resource from a different origin.",
+    "access-control-allow-headers": "Lists which HTTP headers can be used when making cross-origin requests.",
+    "content-encoding": "Indicates the compression algorithm used to encode the response body (e.g., gzip, br).",
+    "content-type": "Specifies the media type and character encoding of the response body (e.g., text/html, application/json).",
+    "date": "The date and time when the message was generated, used for cache validation and troubleshooting.",
+    "transfer-encoding": "Indicates the encoding format used to safely transfer the payload body (e.g., chunked).",
+    "vary": "Tells caches which request headers to consider when determining if a cached response can be used.",
+    "request-context": "Contains request context information, typically used by application frameworks for tracing and debugging.",
+    "x-nextjs-cache": "Next.js-specific header indicating the cache status of the rendered page (e.g., HIT, MISS, STALE).",
+  };
+  
+  return descriptions[headerKey.toLowerCase()] || "HTTP header metadata for the website.";
+}
+
 export default function Home() {
   const [url, setUrl] = useState("");
   const [result, setResult] = useState<AnalysisResult | null>(null);
@@ -266,21 +301,30 @@ export default function Home() {
                       </h3>
                       <div className="space-y-2">
                         {result.headers.server && (
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 p-2.5 sm:p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                            <span className="font-semibold text-blue-700 dark:text-blue-300 flex-shrink-0 text-sm sm:text-base">Server:</span>
-                            <span className="text-blue-900 dark:text-blue-100 font-mono text-xs sm:text-sm break-all">{result.headers.server}</span>
+                          <div className="p-2.5 sm:p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 mb-1">
+                              <span className="font-semibold text-blue-700 dark:text-blue-300 flex-shrink-0 text-sm sm:text-base">Server:</span>
+                              <span className="text-blue-900 dark:text-blue-100 font-mono text-xs sm:text-sm break-all">{result.headers.server}</span>
+                            </div>
+                            <p className="text-xs text-blue-600 dark:text-blue-400 italic mt-1">{getHeaderDescription("server")}</p>
                           </div>
                         )}
                         {result.headers.poweredBy && (
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 p-2.5 sm:p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
-                            <span className="font-semibold text-purple-700 dark:text-purple-300 flex-shrink-0 text-sm sm:text-base">Powered By:</span>
-                            <span className="text-purple-900 dark:text-purple-100 font-mono text-xs sm:text-sm break-all">{result.headers.poweredBy}</span>
+                          <div className="p-2.5 sm:p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 mb-1">
+                              <span className="font-semibold text-purple-700 dark:text-purple-300 flex-shrink-0 text-sm sm:text-base">Powered By:</span>
+                              <span className="text-purple-900 dark:text-purple-100 font-mono text-xs sm:text-sm break-all">{result.headers.poweredBy}</span>
+                            </div>
+                            <p className="text-xs text-purple-600 dark:text-purple-400 italic mt-1">{getHeaderDescription("x-powered-by")}</p>
                           </div>
                         )}
                         {result.headers.framework && (
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 p-2.5 sm:p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-200 dark:border-indigo-800">
-                            <span className="font-semibold text-indigo-700 dark:text-indigo-300 flex-shrink-0 text-sm sm:text-base">Framework:</span>
-                            <span className="text-indigo-900 dark:text-indigo-100 font-mono text-xs sm:text-sm break-all">{result.headers.framework}</span>
+                          <div className="p-2.5 sm:p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 mb-1">
+                              <span className="font-semibold text-indigo-700 dark:text-indigo-300 flex-shrink-0 text-sm sm:text-base">Framework:</span>
+                              <span className="text-indigo-900 dark:text-indigo-100 font-mono text-xs sm:text-sm break-all">{result.headers.framework}</span>
+                            </div>
+                            <p className="text-xs text-indigo-600 dark:text-indigo-400 italic mt-1">{getHeaderDescription("x-framework")}</p>
                           </div>
                         )}
                       </div>
@@ -299,10 +343,13 @@ export default function Home() {
                         {Object.entries(result.headers.security).map(([key, value], idx) => (
                           <div
                             key={idx}
-                            className="flex flex-col sm:flex-row sm:items-center gap-1.5 p-2.5 sm:p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800"
+                            className="p-2.5 sm:p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800"
                           >
-                            <span className="font-semibold text-green-700 dark:text-green-300 flex-shrink-0 capitalize text-sm sm:text-base">{key.replace(/-/g, " ")}:</span>
-                            <span className="text-green-900 dark:text-green-100 font-mono text-xs sm:text-sm break-all">{value}</span>
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 mb-1">
+                              <span className="font-semibold text-green-700 dark:text-green-300 flex-shrink-0 capitalize text-sm sm:text-base">{key.replace(/-/g, " ")}:</span>
+                              <span className="text-green-900 dark:text-green-100 font-mono text-xs sm:text-sm break-all">{value}</span>
+                            </div>
+                            <p className="text-xs text-green-600 dark:text-green-400 italic mt-1">{getHeaderDescription(key)}</p>
                           </div>
                         ))}
                       </div>
@@ -318,10 +365,13 @@ export default function Home() {
                         {Object.entries(result.headers.caching).map(([key, value], idx) => (
                           <div
                             key={idx}
-                            className="flex flex-col sm:flex-row sm:items-center gap-1.5 p-2.5 sm:p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800"
+                            className="p-2.5 sm:p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800"
                           >
-                            <span className="font-semibold text-amber-700 dark:text-amber-300 flex-shrink-0 capitalize text-sm sm:text-base">{key.replace(/-/g, " ")}:</span>
-                            <span className="text-amber-900 dark:text-amber-100 font-mono text-xs sm:text-sm break-all">{value}</span>
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 mb-1">
+                              <span className="font-semibold text-amber-700 dark:text-amber-300 flex-shrink-0 capitalize text-sm sm:text-base">{key.replace(/-/g, " ")}:</span>
+                              <span className="text-amber-900 dark:text-amber-100 font-mono text-xs sm:text-sm break-all">{value}</span>
+                            </div>
+                            <p className="text-xs text-amber-600 dark:text-amber-400 italic mt-1">{getHeaderDescription(key)}</p>
                           </div>
                         ))}
                       </div>
@@ -329,9 +379,12 @@ export default function Home() {
                   )}
 
                   {result.headers.cors && (
-                    <div className="flex items-center gap-1.5 p-2.5 sm:p-3 bg-cyan-50 dark:bg-cyan-900/20 rounded-lg border border-cyan-200 dark:border-cyan-800">
-                      <span className="font-semibold text-cyan-700 dark:text-cyan-300 text-sm sm:text-base">CORS:</span>
-                      <span className="text-cyan-900 dark:text-cyan-100 text-sm sm:text-base">{result.headers.cors}</span>
+                    <div className="p-2.5 sm:p-3 bg-cyan-50 dark:bg-cyan-900/20 rounded-lg border border-cyan-200 dark:border-cyan-800">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className="font-semibold text-cyan-700 dark:text-cyan-300 text-sm sm:text-base">CORS:</span>
+                        <span className="text-cyan-900 dark:text-cyan-100 text-sm sm:text-base">{result.headers.cors}</span>
+                      </div>
+                      <p className="text-xs text-cyan-600 dark:text-cyan-400 italic mt-1">{getHeaderDescription("cors")}</p>
                     </div>
                   )}
 
@@ -344,10 +397,13 @@ export default function Home() {
                         {Object.entries(result.headers.all || {}).map(([key, value], idx) => (
                           <div
                             key={idx}
-                            className="flex flex-col sm:flex-row sm:items-center gap-1.5 p-2.5 sm:p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                            className="p-2.5 sm:p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
                           >
-                            <span className="font-semibold text-slate-700 dark:text-slate-300 flex-shrink-0 text-sm sm:text-base">{key}:</span>
-                            <span className="text-slate-600 dark:text-slate-400 font-mono text-xs sm:text-sm break-all">{value}</span>
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 mb-1">
+                              <span className="font-semibold text-slate-700 dark:text-slate-300 flex-shrink-0 text-sm sm:text-base">{key}:</span>
+                              <span className="text-slate-600 dark:text-slate-400 font-mono text-xs sm:text-sm break-all">{value}</span>
+                            </div>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 italic mt-1">{getHeaderDescription(key)}</p>
                           </div>
                         ))}
                       </div>
