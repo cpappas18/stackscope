@@ -55,7 +55,7 @@ export default function Home() {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       analyze();
     }
@@ -82,23 +82,42 @@ export default function Home() {
           aria-label="Website analysis form"
         >
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <label htmlFor="url-input" className="sr-only focus:not-sr-only">
-              Website URL to analyze
-            </label>
-            <input
-              id="url-input"
-              type="url"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="https://example.com"
-              className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-              disabled={loading}
-              aria-required="true"
-              aria-invalid={error ? "true" : "false"}
-              aria-describedby={error ? "error-message" : undefined}
-              aria-busy={loading}
-            />
+            <div className="relative flex-1">
+              <label htmlFor="url-input" className="sr-only focus:not-sr-only">
+                Website URL to analyze
+              </label>
+              <input
+                id="url-input"
+                type="url"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="https://example.com"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 pr-10 sm:pr-10 text-sm sm:text-base rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                disabled={loading}
+                aria-required="true"
+                aria-invalid={error ? "true" : "false"}
+                aria-describedby={error ? "error-message" : undefined}
+                aria-busy={loading}
+              />
+              {url && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUrl("");
+                    setError(null);
+                    setResult(null);
+                  }}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-600 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  aria-label="Clear input"
+                  disabled={loading}
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
             <button
               type="submit"
               onClick={analyze}
